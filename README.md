@@ -2,6 +2,8 @@
 
 An example factory definition for [Warp Factories](https://docs.warp.dev/factories/). It starts from the default factory that onboarding creates and adds to it: automations that start work at a specific stage, an independent QA stage in the work track, a security lane, a respond lane, an ops stage, and skills loaded from a shared library.
 
+This example is for a factory connected to GitHub, Jira, and Slack. Its automations, labels, and prompts are written for those three. Factories also connect to Microsoft Teams, GitLab, Azure DevOps, Linear, custom webhooks, and more. See [Connect your factory](https://docs.warp.dev/factories/connect-your-factory/) for those integrations.
+
 Use it as a source of parts. You do not copy the whole repository. You create your own factory first, then have an agent bring in the parts you want.
 
 ## How to use it
@@ -232,6 +234,7 @@ When you adapt a part:
 - Merge its stages into your blueprint; do not replace your blueprint. Rename a stage if you already use its name, and update the edges and automations that name it.
 - Keep your own copies of the default skills and prompts, and apply the edits above to them. Your default files may differ from the ones here.
 - Keep your own model settings. The workers this template adds set no model, so they use your factory's default.
+- If your factory uses a different chat tool, issue tracker, or code host, change each automation's trigger to that integration's events, and update the tracker and label conventions in `skills/factory-conventions/`. [Connect your factory](https://docs.warp.dev/factories/connect-your-factory/) lists the integrations and links to each one's guide.
 - Create the labels in your code repository before you enable an automation that filters on one.
 - Enable automations a few at a time, and check that one event starts one run at the stage you expect.
 
