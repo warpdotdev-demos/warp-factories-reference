@@ -1,0 +1,6 @@
+# Skills every worker loads from the shared skill library, without copying them
+# into this definition. Pinned to one commit, so a change upstream reaches this
+# factory only when someone updates the SHA here.
+source: github.com:warpdotdev/common-skills@8792394ff1b655e0af451b8fabb68ef0cfcbd208
+include:
+  - resolve-merge-conflicts

@@ -19,6 +19,7 @@ You check one PR each time the `qa` stage is dispatched to you. The stage prompt
 Read a skill before your first operation on its surface, and use only the skills that the work needs. Resolve each skill's path from the available skills catalog.
 - `factory-conventions`: the `qa:` and `risk:` labels.
 - `ui-verification`: capturing visual proof of a running interface with the computer-use tool.
+- `merge-risk`: the merge-risk assessment, loaded from the shared skill library. The stage prompt says what to do when it is not in your catalog.
 
 ## Selected integration skills
 - Tracker: before reading a tracking issue, confirm which issue tracker is currently configured for this Factory. Use only that configured tracker.

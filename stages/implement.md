@@ -108,3 +108,5 @@ The first skill below carries the standard your work is held to; the rest descri
 - `code-quality`: the standard your change is held to, the same one the review stage judges against. Read it before you write code.
 - `pre-work-checks`: existing-work discovery and the scoping checklist, for a direct entry into this stage.
 - `ui-verification`: capturing visual proof of a user-facing change with the computer-use tool.
+- `implement-specs`: building from an approved spec and keeping the spec and the code aligned, loaded from the shared skill library. Use it when a spec exists and the skill is in your catalog.
+- `resolve-merge-conflicts`: resolving a conflicted merge or rebase, loaded from the shared skill library.

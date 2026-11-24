@@ -45,3 +45,4 @@ Report these when the stage ends; the blueprint's edges read them.
 Read a skill before your first operation on its surface. Resolve each skill's path from the available skills catalog.
 - `code-quality`: the standard for any compatibility change. Read it before you write code.
 - `factory-conventions`: the labels this PR carries and where it is recorded.
+- `resolve-merge-conflicts`: when the branch falls behind the default branch during a revision, loaded from the shared skill library.

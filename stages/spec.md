@@ -39,6 +39,12 @@ Every applicable ask on the `pre-work-checks` scoping checklist is resolved, and
 
 ### Spec content
 
+This factory loads spec procedures from a shared skill library. When `write-product-spec` and `write-tech-spec` are in your skills catalog, use them for the content and shape of the spec: `write-product-spec` when the open questions are about behavior, and `write-tech-spec` when they are about implementation. Two things differ here from what those skills say:
+- Questions for the user go to the foreman for relay. Do not ask the user directly, and do not use an interactive question tool.
+- Name the spec directory for the issue that tracks the work, or for the feature when the work is not tracked. Do not create a ticket to get a name.
+
+The rest of this section applies to every spec, and is the whole standard when those skills are not in your catalog.
+
 - Make the spec self-contained. The implementation stage must not have to make a significant design decision. Resolve each question from the code, the issue, or the interview answers. Record the remainder as assumptions and make it clear what was an assumption.
 - Write in clear, unambiguous language, in the spirit of the ASD-STE100 (Simplified Technical English) guidelines: short sentences in the active voice, one instruction per sentence, one meaning per word used consistently, and no vague qualifiers ("as needed", "appropriately", "etc."). A spec is read under time pressure; it must not be open to interpretation.
 - Use bulleted lists where possible in place of long prose. Lists are easier to scan, to reference, and to check off during implementation and review.
@@ -89,3 +95,4 @@ Report these when the stage ends; the blueprint's edges read them together with 
 
 Read a skill before your first operation on its surface, and use only the skills that the work needs. Resolve each skill's path from the available skills catalog.
 - `pre-work-checks`: existing-work discovery and the scoping checklist, for a direct entry into this stage.
+- `write-product-spec`, `write-tech-spec`: the content and shape of the spec files, loaded from the shared skill library.

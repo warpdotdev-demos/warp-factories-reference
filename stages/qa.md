@@ -31,7 +31,7 @@ The factory does not depend on a QA playbook in the repository. How to install, 
    - `pass`: every planned check ran and passed.
    - `fail`: at least one check shows the change is wrong. Write each as a finding: what was expected, what happened, and how to see it.
    - `not_reached`: no check failed, and at least one planned check could not be run.
-7. Assess merge risk. Judge five things and give one overall level of low, medium, or high, with a sentence for each: whether the change does what was asked and only that; what breaks, and for whom, if it is wrong; how strong the verification is; how easily it can be undone; and whether anyone would notice if it broke. Base it on your own evidence and on what the review found, not on the author's claims. A change that cannot be undone, or that touches authentication, permissions, payments, personal data, or a data migration, is never `low`.
+7. Assess merge risk. Use the `merge-risk` skill from the shared skill library and report its low, medium, or high result. Base it on your own evidence and on what the review found, not on the author's claims. When that skill is not in your catalog, judge five things and give one overall level with a sentence for each: whether the change does what was asked and only that; what breaks, and for whom, if it is wrong; how strong the verification is; how easily it can be undone; and whether anyone would notice if it broke. A change that cannot be undone, or that touches authentication, permissions, payments, personal data, or a data migration, is never `low`.
 8. Set the labels. Put exactly one of `qa:passed`, `qa:failed`, or `qa:not-reached` and exactly one of `risk:low`, `risk:medium`, or `risk:high` on the PR, and remove any stale one from an earlier round.
 9. Post the report as one new comment on the PR. Post a new comment for each round; do not edit an earlier one.
 10. Report the outputs.
@@ -71,3 +71,4 @@ Report these when the stage ends; the blueprint's edges read them.
 Read a skill before your first operation on its surface. Resolve each skill's path from the available skills catalog.
 - `factory-conventions`: the `qa:` and `risk:` labels.
 - `ui-verification`: capturing visual proof of a running interface with the computer-use tool.
+- `merge-risk`: the merge-risk assessment, loaded from the shared skill library.

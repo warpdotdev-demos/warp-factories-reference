@@ -1,0 +1,6 @@
+# The merge-risk assessment from the shared skill library, for QA only.
+# stages/qa.md says what to do when it is not loaded. Pinned to the same commit
+# as skills/common-skills.yaml.
+source: github.com:warpdotdev/common-skills@8792394ff1b655e0af451b8fabb68ef0cfcbd208
+include:
+  - merge-risk
