@@ -6,10 +6,6 @@ Make the fast decisions only: is the problem real, is it still happening, when d
 
 Start from the signal in its own words, with its links: a failed workflow run on the default branch, or a post in the incident channel.
 
-## Repository instructions
-
-Before you read, run, or change code, read the repository's own agent instructions for the files involved: a root `AGENTS.md`, `WARP.md`, or `CLAUDE.md`, and any directory-scoped equivalent deeper in the tree. Follow them, and use the repository's skills for build, test, and run commands. When the repository has neither, work from its README, build files, and CI configuration, and say in your report what you assumed.
-
 ## Procedure
 
 1. Read the signal.

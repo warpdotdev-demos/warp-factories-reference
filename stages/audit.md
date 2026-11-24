@@ -4,10 +4,6 @@ This stage is executed by the security worker, inline in the `security` scope. S
 
 Scan the repository's dependencies for known advisories, file the ones that are new, and choose one to assess now. This stage does not assess or remediate; `assess` and `patch` do that.
 
-## Repository instructions
-
-Before you read, run, or change code, read the repository's own agent instructions for the files involved: a root `AGENTS.md`, `WARP.md`, or `CLAUDE.md`, and any directory-scoped equivalent deeper in the tree. Follow them, and use the repository's skills for build, test, and run commands. When the repository has neither, work from its README, build files, and CI configuration, and say in your report what you assumed.
-
 ## Procedure
 
 1. Take the backlog first. Search the tracker for open issues labeled `factory-cve` that have no assessment recorded and no open PR (`factory-conventions`, Advisory issues). When there is one, choose the oldest as the advisory to assess now, skip the scan, and go to step 7. This keeps earlier findings from waiting behind new ones.

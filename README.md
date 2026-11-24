@@ -159,7 +159,7 @@ Workers get their instructions from three places.
 
 | Place | What belongs there | In this template |
 | --- | --- | --- |
-| The code repository | Anything true of the codebase no matter who works on it: how to build, test, and run it, and its conventions | Nothing is copied. Every stage that reads or runs code follows the repository's `AGENTS.md` (or `WARP.md`, `CLAUDE.md`) and uses its skills. |
+| The code repository | Anything true of the codebase no matter who works on it: how to build, test, and run it, and its conventions | Nothing is copied. Workers follow the repository's `AGENTS.md` (or `WARP.md`, `CLAUDE.md`) and use its skills. |
 | A shared skill library | Procedures that are the same in every repository | Three skill reference files load five skills from [`warpdotdev/common-skills`](https://github.com/warpdotdev/common-skills) at a pinned commit |
 | The factory | Only what is about the factory itself | The seven default skills, and [`factory-conventions`](skills/factory-conventions/SKILL.md): the labels and tracker conventions the lanes share |
 

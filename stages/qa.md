@@ -6,12 +6,6 @@ Check what the change does when it runs, on the PR's head commit, and say how ri
 
 Start from the PR and its head commit, the issue and the spec when they exist, the author's verification report, the review outcome, and the number of QA rounds this PR has had.
 
-## Repository instructions
-
-Before you read, run, or change code, read the repository's own agent instructions for the files involved: a root `AGENTS.md`, `WARP.md`, or `CLAUDE.md`, and any directory-scoped equivalent deeper in the tree. Follow them, and use the repository's skills for build, test, and run commands. When the repository has neither, work from its README, build files, and CI configuration, and say in your report what you assumed.
-
-The factory does not depend on a QA playbook in the repository. How to install, build, test, and run the project comes from those instructions and skills. When they do not say, read the README, the build files, and the CI workflows to find the commands CI runs, and use those.
-
 ## Procedure
 
 1. Plan the checks before you run anything. Write a short list with three parts:

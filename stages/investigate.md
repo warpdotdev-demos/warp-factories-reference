@@ -6,10 +6,6 @@ Find what caused the problem, with evidence a reviewer can check, and decide wha
 
 Start from what `confirm` established: the problem, when it started, the last state known to be good, and the issue.
 
-## Repository instructions
-
-Before you read, run, or change code, read the repository's own agent instructions for the files involved: a root `AGENTS.md`, `WARP.md`, or `CLAUDE.md`, and any directory-scoped equivalent deeper in the tree. Follow them, and use the repository's skills for build, test, and run commands. When the repository has neither, work from its README, build files, and CI configuration, and say in your report what you assumed.
-
 ## Procedure
 
 1. List what changed between the last good state and the first bad one. For a build, that is the commits on the default branch between the two (`git log --oneline <good>..<bad>`), and the PR behind each commit.

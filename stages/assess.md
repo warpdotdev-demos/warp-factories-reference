@@ -6,10 +6,6 @@ Decide whether an advisory affects this repository, from the advisory and what t
 
 Start from the advisory: the issue that carries it, or the advisory `audit` chose.
 
-## Repository instructions
-
-Before you read, run, or change code, read the repository's own agent instructions for the files involved: a root `AGENTS.md`, `WARP.md`, or `CLAUDE.md`, and any directory-scoped equivalent deeper in the tree. Follow them, and use the repository's skills for build, test, and run commands. When the repository has neither, work from its README, build files, and CI configuration, and say in your report what you assumed.
-
 ## Procedure
 
 1. Check for existing work. Read the issue and its latest comments. Look for an assessment already recorded there, a linked PR, or an open PR labeled `lane:security` for the same advisory and package. Continue existing work instead of starting parallel work. A repeat trigger with nothing new is a no-op: stop without writing anything.

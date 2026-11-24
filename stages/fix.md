@@ -6,10 +6,6 @@ Carry out exactly the decision from `investigate`, a revert or a bounded fix, as
 
 Start from the brief: the change to revert or the root cause to correct, its author, and the check that proves the problem is gone.
 
-## Repository instructions
-
-Before you read, run, or change code, read the repository's own agent instructions for the files involved: a root `AGENTS.md`, `WARP.md`, or `CLAUDE.md`, and any directory-scoped equivalent deeper in the tree. Follow them, and use the repository's skills for build, test, and run commands. When the repository has neither, work from its README, build files, and CI configuration, and say in your report what you assumed.
-
 ## Procedure
 
 1. Branch from the latest default branch.
