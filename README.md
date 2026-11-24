@@ -13,23 +13,19 @@ Use it as a source of parts. You do not copy the whole repository. You create yo
    - **A local agent with Factory MCP** - Connect your coding agent to [Factory MCP](https://docs.warp.dev/factories/factory-mcp/). In Warp, the connection is already there. The agent can then read the factory definition schema, validate the definition files, and send work to your factory.
 4. Review the change the agent proposes before it lands. Then enable the new automations a few at a time.
 
-A request to send, with the uppercase words replaced by your own:
+Here is a sample prompt to use. Replace the <COMPONENT> with specific parts to bring in (like QA):
 
 ```text
 Read the README in https://github.com/warpdotdev-demos/warp-factories-reference.
 
-Adapt the PART_NAME part into my factory's definition. Read the commit that
-added it there, copy its new files, and apply its edits to my versions of the
-existing files. Replace every placeholder with my factory's values. Keep my
-factory's model settings as they are; the new workers use my factory's
-default model.
+Adapt the <COMPONENT> part(s) to this factory's definition. Read the copy the needed files from the example repo, figure out what changes need to be made and apply edits to this factories config. Replace every placeholder with my factory's values. Keep my factory's model settings as they are and have new workers use models already defined in my existing workers.
 
-My Slack channels are RESULTS_CHANNEL for results and digests, BUGS_CHANNEL
-for bug reports, and INCIDENTS_CHANNEL for incident reports.
+My Slack channels are:
+#RESULTS_CHANNEL for results and digests
+#BUGS_CHANNEL for bug reports
+#INCIDENTS_CHANNEL for incident reports.
 
-Before you change anything, show me the stages you will add and where their
-edges connect, the files you will add, each edit to a file I already have,
-and the value you will use for each placeholder.
+Before you change anything, show me the blueprint changes, including the stages added and where their edges connect, automations, skills, and other changes vs. the existing factory config files.
 ```
 
 ## The blueprint
