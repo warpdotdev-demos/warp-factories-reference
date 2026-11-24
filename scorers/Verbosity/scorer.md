@@ -6,6 +6,7 @@ workers:
     - Engineering Foreman
     - Engineering QA
     - Engineering Security
+    - Engineering Responder
 labels:
     - value: proportionate
       description: 'The agent''s output matched the work: most messages consistently said what happened and what comes next, no point was repeated or restated, and nothing the recipient needed was omitted.'

@@ -258,3 +258,87 @@ blueprint:
                   when: handoff is more work needed for any delivered PR; pass what arrived, verbatim, to the same security conversation.
                 - stage: end
                   when: result is no_action with no delivered PR still open, or handoff is merged or closed without merge for every delivered PR.
+        respond:
+            description: Confirm that something is broken right now, find the change that caused it, and open a revert or a bounded fix.
+            worker: Engineering Responder
+            inputs: |-
+                signal: What arrived, in its own words, with every link: the failed workflow run on the default branch, or the post in the incident channel.
+                context: What is already known: when it started, the issue if one exists, earlier findings for the same problem, and review findings or CI evidence when this is a revision.
+            outputs: |-
+                result: one of pr_delivered or no_action.
+                cause: The change that caused the problem, with the evidence, or none found.
+                artifacts: The issue, the revert or fix PR and its checks, and any decision left for a human.
+            start:
+                to:
+                    - stage: fix
+                      when: 'A follow-up on a PR this lane already delivered: a CI failure or review feedback.'
+                    - stage: confirm
+                      when: A new signal. Default.
+            stages:
+                confirm:
+                    description: Check that the problem is real and still happening, and record it.
+                    worker: Engineering Responder
+                    outputs: |-
+                        confirmed: one of yes, no, or already_owned, with the evidence.
+                        started: When it started and the last state known to be good, as far as the evidence shows.
+                        issue: The issue that tracks this problem, created or adopted, or the open issue this signal joined.
+                    prompt:
+                        file: stages/confirm.md
+                    to:
+                        - stage: investigate
+                          when: confirmed is yes.
+                        - stage: end
+                          when: confirmed is no or already_owned; the evidence, or the issue the signal joined, is the result.
+                investigate:
+                    description: Find the change that caused the problem and decide between a revert, a fix, and a human call.
+                    worker: Engineering Responder
+                    outputs: |-
+                        cause: The offending change with the evidence that ties it to the problem, a cause outside the repository's history, or none.
+                        decision: one of revert, fix, human, or no_cause.
+                        brief: For revert or fix, the change to undo or the root cause to correct, and the check that proves the problem is gone.
+                    prompt:
+                        file: stages/investigate.md
+                    gates:
+                        human:
+                            when: 'decision is human: the evidence points at a suspect but does not prove it, the remedy would be hard to undo, a revert does not apply cleanly, or the fix needs a product decision.'
+                            prompt: Put the evidence and the options (revert, fix forward, or leave as is) to a human, with the risk of each and your recommendation.
+                            outputs: revert, fix, or leave as is, in the human's words.
+                    to:
+                        - stage: fix
+                          when: decision is revert or fix, or the human answer is revert or fix.
+                        - stage: end
+                          when: decision is no_cause, or the human answer is leave as is; what was checked is the result.
+                fix:
+                    description: Open the revert or the bounded fix as a draft PR.
+                    worker: Engineering Responder
+                    outputs: |-
+                        pr: The draft PR, labeled for this lane, with the evidence in its description.
+                        kind: one of revert or fix.
+                        verification: What was run and what it proved.
+                    prompt:
+                        file: stages/fix.md
+                    to: respond-review
+                respond-review:
+                    description: Check the revert or fix for correctness and quality.
+                    worker: Engineering Responder
+                    outputs: |-
+                        verdict: one of accepted, revision_needed, or human_decision_needed.
+                        findings: Location, severity, problem, impact, correction and unambiguous/ambiguous classification for each finding.
+                        delivery: Reviewed PR, checks, remaining human decisions and proof; whether a human-facing review was posted.
+                    prompt:
+                        file: stages/review.md
+                    to:
+                        - stage: end
+                          when: verdict is accepted or human_decision_needed; the PR goes to a human, with any findings that need one already posted.
+                        - stage: fix
+                          when: verdict is revision_needed; only unambiguous findings, applied as the review wrote them.
+            gates:
+                handoff:
+                    when: result is pr_delivered, or a delivered PR is still open when the lane reports another result.
+                    prompt: 'Present every delivered PR that awaits a human: its link, CI''s current result stated accurately, the problem, its cause and the evidence that ties them together, the self-review outcome and any findings left for human judgment, and what a human should check before merging. Ask the requester for a merge decision; when an automation started the work, ask where its instructions say results go. A human decides whether and when to merge.'
+                    outputs: 'The outcome for each delivered PR: merged, closed without merge, or more work needed. More work needed is anything arriving for the PR that the lane''s worker must act on, from a person or an automation, with its exact content. Answer as soon as any PR needs more work; otherwise only when every PR has merged or closed. An approval with nothing to act on, a question, or an administrative follow-up is not an answer.'
+            to:
+                - stage: respond
+                  when: handoff is more work needed for any delivered PR; pass what arrived, verbatim, to the same responder conversation.
+                - stage: end
+                  when: result is no_action with no delivered PR still open, or handoff is merged or closed without merge for every delivered PR.

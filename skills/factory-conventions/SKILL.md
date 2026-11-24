@@ -13,6 +13,7 @@ Automations route follow-up events by these labels, so a missing or wrong label 
 
 - `factory:eng`: every pull request this factory opens or adopts. The code forge skill resolves it and has the commands.
 - `lane:security`: a pull request from the security lane. The security worker sets it. Automations use it to send CI failures and review feedback back to `patch`.
+- `lane:respond`: a pull request from the respond lane. The responder sets it. Automations use it to send CI failures and review feedback back to `fix`.
 - A pull request from the default work track carries no lane label.
 - `qa:passed`, `qa:failed`, `qa:not-reached`, and `risk:low`, `risk:medium`, `risk:high`: the result of the QA stage, which checks work-track pull requests. Only the QA worker sets them, and a pull request carries exactly one of each once QA has run.
 

@@ -9,6 +9,7 @@ triggers:
                 - factory:eng
             not_in:
                 - lane:security
+                - lane:respond
         repos:
             - your-org/your-repo
 ---

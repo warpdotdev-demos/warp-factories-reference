@@ -4,6 +4,7 @@ description: Whether the code, tests, and comments the agent produced are well-d
 stages:
     - implement
     - patch
+    - fix
 labels:
     - value: approve
       description: The agent produced well-designed, correct code that is consistent with repo conventions, adequately tested, and clean of smells; a senior reviewer would approve it outright, with at most trivial nits.
