@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: ops
 triggers:
     - provider: schedule

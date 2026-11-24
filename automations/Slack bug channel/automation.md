@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: triage
 triggers:
     - provider: slack

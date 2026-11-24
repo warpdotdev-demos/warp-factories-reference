@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: confirm
 triggers:
     - provider: github

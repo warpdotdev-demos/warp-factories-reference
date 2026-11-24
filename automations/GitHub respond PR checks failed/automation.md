@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: fix
 triggers:
     - provider: github

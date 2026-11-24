@@ -20,7 +20,12 @@ Read the README in https://github.com/warpdotdev-demos/warp-factories-reference.
 
 Adapt the PART_NAME part into my factory's definition. Read the commit that
 added it there, copy its new files, and apply its edits to my versions of the
-existing files. Replace every placeholder with my factory's values.
+existing files. Replace every placeholder with my factory's values. Keep my
+factory's model settings as they are; the new workers use my factory's
+default model.
+
+My Slack channels are RESULTS_CHANNEL for results and digests, BUGS_CHANNEL
+for bug reports, and INCIDENTS_CHANNEL for incident reports.
 
 Before you change anything, show me the stages you will add and where their
 edges connect, the files you will add, each edit to a file I already have,
@@ -57,7 +62,7 @@ flowchart LR
 ```
 
 - **`research`** - Answers one bounded question, read-only. From the default factory.
-- **`work`** - The default work track. One worker takes a request through triage, an optional spec, implementation, and a review of its own change. This template adds a `qa` stage at the end: a separate QA worker runs the change, posts a report, and assesses merge risk. A failed check sends the pull request back to `implement`, at most twice.
+- **`work`** - The default work track. One worker takes a request through triage, an optional spec, implementation, and a review of its own change. This template adds a `qa` stage at the end: a separate QA worker runs the change, posts a report, and assesses merge risk. A failed check sends the pull request back to `implement`, at most twice. A change that skips review also skips QA.
 - **`security`** - For dependency advisories. A daily audit files what is new, each advisory is assessed against what the repository actually resolves, and an affected one gets the smallest verified upgrade as a pull request.
 - **`respond`** - For things that are broken right now. It confirms the problem, finds the change that caused it, and opens a revert or a bounded fix as a pull request. It never deploys or rolls anything back.
 - **`ops`** - A stage the foreman runs itself for a weekly digest and reminders.
@@ -108,7 +113,7 @@ A stage does not need an edge from `start` to be entered by name. Here the `secu
 
 ## Automations
 
-The factory has 24 automations.
+The factory has 24 automations. The nine from the default factory are enabled. The 15 this template adds ship disabled, so nothing new starts until you enable it.
 
 | Automation | Trigger | Enters |
 | --- | --- | --- |
@@ -125,7 +130,7 @@ The factory has 24 automations.
 | `Weekly flaky test sweep` | Mondays 07:00 UTC | `triage` |
 | `GitHub PR checks failed` | A workflow fails on a work-track pull request | `implement` |
 | `Weekly docs check` | Mondays 08:00 UTC | `implement` |
-| `GitHub external PR ready` | A pull request the factory did not open becomes ready for review (disabled by default) | `review` |
+| `GitHub external PR ready` | A pull request the factory did not open becomes ready for review | `review` |
 | `Daily dependency audit` | Daily 06:00 UTC | `audit` |
 | `Jira advisory labeled` | A Jira issue in `ENG` is labeled `factory-cve` | `assess` |
 | `GitHub security PR checks failed` | A workflow fails on a security-lane pull request | `patch` |
@@ -230,6 +235,7 @@ When you adapt a part:
 
 - Merge its stages into your blueprint; do not replace your blueprint. Rename a stage if you already use its name, and update the edges and automations that name it.
 - Keep your own copies of the default skills and prompts, and apply the edits above to them. Your default files may differ from the ones here.
+- Keep your own model settings. The workers this template adds set no model, so they use your factory's default.
 - Create the labels in your code repository before you enable an automation that filters on one.
 - Enable automations a few at a time, and check that one event starts one run at the stage you expect.
 

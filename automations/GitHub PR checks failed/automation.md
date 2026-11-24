@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: implement
 triggers:
     - provider: github

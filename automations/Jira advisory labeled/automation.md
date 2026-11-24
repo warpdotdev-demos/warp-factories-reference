@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: assess
 triggers:
     - provider: jira

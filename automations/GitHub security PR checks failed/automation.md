@@ -1,4 +1,5 @@
 ---
+enabled: false
 stage: patch
 triggers:
     - provider: github
