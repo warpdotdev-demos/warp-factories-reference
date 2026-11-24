@@ -3,6 +3,7 @@ name: Code Quality
 description: Whether the code, tests, and comments the agent produced are well-designed and consistent with the target repo's conventions.
 stages:
     - implement
+    - patch
 labels:
     - value: approve
       description: The agent produced well-designed, correct code that is consistent with repo conventions, adequately tested, and clean of smells; a senior reviewer would approve it outright, with at most trivial nits.

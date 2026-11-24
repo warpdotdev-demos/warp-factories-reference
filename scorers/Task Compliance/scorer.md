@@ -5,6 +5,7 @@ workers:
     - Engineering Task-Worker
     - Engineering Foreman
     - Engineering QA
+    - Engineering Security
 labels:
     - value: fully_compliant
       description: The agent did everything its role and directives required, and surfaced any deviation.

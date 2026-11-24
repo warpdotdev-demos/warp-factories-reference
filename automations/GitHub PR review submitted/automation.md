@@ -5,7 +5,10 @@ triggers:
       event: pull_request_review_submitted
       filter:
         labels:
-            - factory:eng
+            in:
+                - factory:eng
+            not_in:
+                - lane:security
         repos:
             - your-org/your-repo
 ---

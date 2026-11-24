@@ -181,3 +181,80 @@ blueprint:
                   when: handoff is more work needed for any delivered PR; pass what arrived, verbatim, to the same worker conversation.
                 - stage: end
                   when: result is answered or declined with no delivered PR still open, or handoff is merged or closed without merge for every delivered PR.
+        security:
+            description: Find dependency advisories, decide whether each one affects the repository, and open the smallest verified upgrade.
+            worker: Engineering Security
+            inputs: |-
+                advisory: The CVE or advisory with its package, affected versions, severity and references, or the instruction to run a scheduled audit.
+                context: The issue when one exists, earlier outcomes for the same advisory, and review findings or CI evidence when this is a revision.
+            outputs: |-
+                result: one of pr_delivered or no_action.
+                outcome: one of affected, not_affected, or no_credible_fix, when an advisory was assessed.
+                artifacts: The issue, the upgrade PR and its checks, and any decision left for a human.
+            start:
+                to:
+                    - stage: patch
+                      when: 'A follow-up on a PR this lane already delivered: a CI failure or review feedback.'
+                    - stage: audit
+                      when: A scheduled dependency audit with no specific advisory named.
+                    - stage: assess
+                      when: A specific advisory. Default.
+            stages:
+                audit:
+                    description: Scan the repository's dependencies for known advisories and file the ones that are new.
+                    worker: Engineering Security
+                    outputs: |-
+                        advisory: The one advisory to assess now, with its issue, or none.
+                        filed: The issues created in this run.
+                        skipped: Findings left out, each with the reason.
+                    prompt:
+                        file: stages/audit.md
+                    to:
+                        - stage: assess
+                          when: advisory names one to assess now.
+                        - stage: end
+                          when: advisory is none; nothing new was found and no earlier advisory is waiting.
+                assess:
+                    description: Decide whether the advisory affects the repository and what a credible fix is.
+                    worker: Engineering Security
+                    outputs: |-
+                        outcome: one of affected, not_affected, or no_credible_fix.
+                        brief: When affected, the target versions, the compatibility changes to expect, and the residual risk.
+                    prompt:
+                        file: stages/assess.md
+                    to:
+                        - stage: patch
+                          when: outcome is affected.
+                        - stage: end
+                          when: outcome is not_affected or no_credible_fix; the assessment on the issue is the result.
+                patch:
+                    description: Open the smallest verified dependency upgrade as a draft PR.
+                    worker: Engineering Security
+                    outputs: 'pr: The draft PR, labeled for this lane, with the advisory, the version changes, the residual risk and the evidence.'
+                    prompt:
+                        file: stages/patch.md
+                    to: security-review
+                security-review:
+                    description: Check the upgrade for correctness and quality.
+                    worker: Engineering Security
+                    outputs: |-
+                        verdict: one of accepted, revision_needed, or human_decision_needed.
+                        findings: Location, severity, problem, impact, correction and unambiguous/ambiguous classification for each finding.
+                        delivery: Reviewed PR, checks, remaining human decisions and proof; whether a human-facing review was posted.
+                    prompt:
+                        file: stages/review.md
+                    to:
+                        - stage: end
+                          when: verdict is accepted or human_decision_needed; the PR goes to a human, with any findings that need one already posted.
+                        - stage: patch
+                          when: verdict is revision_needed; only unambiguous findings, applied as the review wrote them.
+            gates:
+                handoff:
+                    when: result is pr_delivered, or a delivered PR is still open when the lane reports another result.
+                    prompt: 'Present every delivered PR that awaits a human: its link, CI''s current result stated accurately, the advisory it resolves and the risk that remains, the self-review outcome and any findings left for human judgment, and what a human should check before merging. Ask the requester for a merge decision; when an automation started the work, ask where its instructions say results go. A human decides whether and when to merge.'
+                    outputs: 'The outcome for each delivered PR: merged, closed without merge, or more work needed. More work needed is anything arriving for the PR that the lane''s worker must act on, from a person or an automation, with its exact content. Answer as soon as any PR needs more work; otherwise only when every PR has merged or closed. An approval with nothing to act on, a question, or an administrative follow-up is not an answer.'
+            to:
+                - stage: security
+                  when: handoff is more work needed for any delivered PR; pass what arrived, verbatim, to the same security conversation.
+                - stage: end
+                  when: result is no_action with no delivered PR still open, or handoff is merged or closed without merge for every delivered PR.

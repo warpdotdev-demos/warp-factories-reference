@@ -5,6 +5,7 @@ workers:
     - Engineering Task-Worker
     - Engineering Foreman
     - Engineering QA
+    - Engineering Security
 labels:
     - value: highly_efficient
       description: 'The agent took a direct path: nothing re-read or re-run, independent steps batched, no work redone.'

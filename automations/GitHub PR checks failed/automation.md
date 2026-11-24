@@ -8,7 +8,10 @@ triggers:
             - failure
             - timed_out
         labels:
-            - factory:eng
+            in:
+                - factory:eng
+            not_in:
+                - lane:security
         repos:
             - your-org/your-repo
         skip_bots: none

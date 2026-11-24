@@ -4,6 +4,7 @@ description: Whether the agent declared the blueprint stage moves it drove, with
 workers:
     - Engineering Task-Worker
     - Engineering Foreman
+    - Engineering Security
 labels:
     - value: consistent
       description: Every observable stage move was successfully declared before the destination's work, using the correct scope and paths and honoring the applicable blueprint edges and gates.
