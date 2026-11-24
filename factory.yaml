@@ -51,7 +51,7 @@ blueprint:
                 artifacts: Existing findings, issue, spec, PR, review threads, validation and recoverable proof.
             outputs: |-
                 result: one of answered, declined, or pr_delivered.
-                artifacts: Issue/spec/PR references, checks, remaining human decisions and visual-proof links.
+                artifacts: Issue/spec/PR references, checks, QA verdict and merge risk, remaining human decisions and visual-proof links.
                 ownership: Retained conversation, branch, issue coverage and decisions for follow-ups.
             start:
                 to:
@@ -116,7 +116,7 @@ blueprint:
                     worker: Engineering Task-Worker
                     inputs: |-
                         authorization: Requested change or bounded automation, settled approach, resolved scoping asks and approved spec when one exists.
-                        revision: Existing branch/PR, actionable review findings or CI evidence, and retained decisions.
+                        revision: Existing branch/PR, actionable review or QA findings or CI evidence, and retained decisions.
                     outputs: |-
                         needs_triage: true only when work that was trivial now needs triage; otherwise false.
                         review_decision: one of review or skip.
@@ -147,14 +147,34 @@ blueprint:
                     prompt:
                         file: stages/review.md
                     to:
+                        - stage: qa
+                          when: verdict is accepted or human_decision_needed, on a PR this factory opened; the readied PR gets an independent QA pass before it goes to the user.
                         - stage: end
-                          when: verdict is accepted or human_decision_needed; the PR goes to the user, with any findings that need a human already posted.
+                          when: verdict is accepted or human_decision_needed, on a review-only entry for a PR this factory did not open; the posted review is the result.
                         - stage: implement
                           when: verdict is revision_needed; only unambiguous findings, applied as the review wrote them.
+                qa:
+                    description: Run the change and assess merge risk, independently of the worker that wrote it.
+                    worker: Engineering QA
+                    inputs: |-
+                        pr: The PR to check, with its head commit.
+                        context: The issue and the spec when they exist, the author's verification report, the review outcome, and how many QA rounds this PR has had.
+                    outputs: |-
+                        verdict: one of pass, fail, or not_reached.
+                        report_url: The QA report comment on the PR, for the head commit that was checked.
+                        findings: For fail, each failed check with what was expected, what happened, and how to see it.
+                        merge_risk: one of low, medium, or high, with the main reason.
+                    prompt:
+                        file: stages/qa.md
+                    to:
+                        - stage: implement
+                          when: verdict is fail and this PR has had fewer than two QA rounds; revise the same PR from the findings.
+                        - stage: end
+                          when: verdict is pass or not_reached, or two QA rounds have run; the PR goes to the user with the QA report and any open failure stated.
             gates:
                 handoff:
                     when: result is pr_delivered, or a delivered PR is still open when the worker reports another result.
-                    prompt: 'Present every delivered PR that awaits a human: its link, CI''s current result stated accurately, the factory self-review outcome and any findings left for human judgment, and one visual proof file when the work was verified visually. Ask the requester for a merge decision. A human decides whether and when to merge.'
+                    prompt: 'Present every delivered PR that awaits a human: its link, CI''s current result stated accurately, the factory self-review outcome and any findings left for human judgment, the QA verdict and merge risk when QA ran, and one visual proof file when the work was verified visually. Ask the requester for a merge decision. A human decides whether and when to merge.'
                     outputs: 'The outcome for each delivered PR: merged, closed without merge, or more work needed. More work needed is anything arriving for the PR that the worker must act on, from a person or an automation, with its exact content. Answer as soon as any PR needs more work; otherwise only when every PR has merged or closed. An approval with nothing to act on, a question, or an administrative follow-up is not an answer.'
             to:
                 - stage: work

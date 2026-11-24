@@ -88,7 +88,7 @@ Size the description to the change, not to the skeleton. Whichever structure app
 
 ## Revisions
 
-- This stage is re-entered for revisions. Unambiguous review findings, a review submitted on the PR, a CI failure, an answer to your question, or a new instruction from the user can bring the delivered work back here.
+- This stage is re-entered for revisions. Unambiguous review findings, a failed QA check, a review submitted on the PR, a CI failure, an answer to your question, or a new instruction from the user can bring the delivered work back here.
 - Treat that as a revision of the delivered work, not as a new task. You keep the full context from the initial implementation. Do not collect it again.
 - Make the revision on the same branch and PR. For each review finding, make the change, or say in the thread why you did not. Apply each unambiguous finding's own correction as the review wrote it; do not restate it as a generic "add a test for it" when the finding did not ask for one - a blanket instruction applied every round is how coverage outgrows what any single finding actually asked for. Verify again per the Verification section. Update the PR description.
 - Re-run step 4's comment pass on the revised diff. Answering a review finding is exactly when a durable note about the discussion is tempting to leave in the code; that note belongs in the thread reply, not the diff.

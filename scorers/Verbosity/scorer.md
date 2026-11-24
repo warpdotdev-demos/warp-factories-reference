@@ -4,6 +4,7 @@ description: Whether the agent's written, text output was proportionate to the w
 workers:
     - Engineering Task-Worker
     - Engineering Foreman
+    - Engineering QA
 labels:
     - value: proportionate
       description: 'The agent''s output matched the work: most messages consistently said what happened and what comes next, no point was repeated or restated, and nothing the recipient needed was omitted.'

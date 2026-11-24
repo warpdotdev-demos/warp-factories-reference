@@ -4,6 +4,7 @@ description: Whether the agent fulfilled the mandate of its assigned factory rol
 workers:
     - Engineering Task-Worker
     - Engineering Foreman
+    - Engineering QA
 labels:
     - value: fully_compliant
       description: The agent did everything its role and directives required, and surfaced any deviation.

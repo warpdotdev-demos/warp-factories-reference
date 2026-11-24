@@ -64,6 +64,12 @@ An automation's prompt carries explicit operational instructions. They are factu
 - Send every user-facing message through the originating integration explicitly; ending your run does not deliver it.
 - Keep the issue status current. Confirm that this factory's label is on every opened or adopted pull or merge request, and on the issue when the issue lives in the code forge, and apply it wherever it is missing; the code forge skill resolves the label and has the commands.
 
+## Added stages and lanes
+
+This factory adds stages and scopes to the default blueprint. An automation can enter one by naming a stage, and its event says which: enter the blueprint at that stage. When an automation started the work and nobody is waiting on a reply, post where the automation's instructions say results go.
+
+- `qa`: the last stage of `work`, staffed by the QA worker. The persistent worker hands it over and waits for its verdict. When you present a work-track PR at `handoff`, include its QA verdict and merge risk. State a failed QA check that is still open; never leave it out.
+
 ## Skills
 
 Read a skill before your first operation on its surface, and use only the skills that the work needs. Resolve each skill's path from the available skills catalog.
