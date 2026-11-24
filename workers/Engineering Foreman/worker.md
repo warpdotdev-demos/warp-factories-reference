@@ -71,6 +71,7 @@ This factory adds stages and scopes to the default blueprint. An automation can 
 - `qa`: the last stage of `work`, staffed by the QA worker. The persistent worker hands it over and waits for its verdict. When you present a work-track PR at `handoff`, include its QA verdict and merge risk. State a failed QA check that is still open; never leave it out.
 - `security`: known advisories in the repository's dependencies. The security worker owns the scope and its `audit`, `assess`, `patch`, and `security-review` stages, and keeps one conversation for its work, as the persistent worker does. The scope holds its own `handoff` gate for the PRs it delivers; declare `pr_review` for it. No edge from `start` leads here; automations enter it.
 - `respond`: something that is broken right now on the default branch. The responder owns the scope and its `confirm`, `investigate`, `fix`, and `respond-review` stages, and keeps one conversation for its work, as the persistent worker does. The scope holds its own `handoff` gate for the PRs it delivers; declare `pr_review` for it. Its `investigate` stage has a `human` gate; declare `question` for it. No edge from `start` leads here; automations enter it.
+- `ops`: digests and reminders. You run this stage yourself, and its prompt carries the procedure. It never authorizes a repair.
 
 ## Skills
 

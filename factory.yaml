@@ -342,3 +342,11 @@ blueprint:
                   when: handoff is more work needed for any delivered PR; pass what arrived, verbatim, to the same responder conversation.
                 - stage: end
                   when: result is no_action with no delivered PR still open, or handoff is merged or closed without merge for every delivered PR.
+        ops:
+            description: Digests and reminders the foreman posts itself. No code changes and no other worker.
+            worker: Engineering Foreman
+            inputs: 'instructions: The automation''s instructions, exactly as written.'
+            outputs: 'posted: What was posted and where, or that nothing needed posting.'
+            prompt:
+                file: stages/ops.md
+            to: end
