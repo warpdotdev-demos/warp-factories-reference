@@ -182,6 +182,26 @@ include:
 | `workers/Engineering Task-Worker/skills/common-skills.yaml` | `write-product-spec`, `write-tech-spec`, `implement-specs` |
 | `workers/Engineering QA/skills/common-skills.yaml` | `merge-risk` |
 
+## The runner
+
+Every worker runs in the factory's default runner, [`runners/default.yaml`](runners/default.yaml). Onboarding creates it with a general-purpose image and no setup commands, so it does not have your repository's toolchain or dependencies. Customize it for the repository your factory works on:
+
+- At a minimum, add `setupCommands` that install what the repository's build, test, and lint commands need.
+- If the default image is a poor fit, change `dockerImage` to another [Warp-provided image](https://github.com/warpdotdev/oz-dev-environments#available-images) or to an image of your own.
+
+```yaml
+# runners/default.yaml
+setupCommands:
+    - go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
+platform:
+    os: linux
+    arch: x86_64
+    linux:
+        dockerImage: warpdotdev/dev-go:1.23
+```
+
+See [Runners](https://docs.warp.dev/factories/runners/) for every setting.
+
 ## Labels
 
 Automations route follow-up events by labels on the pull request.
