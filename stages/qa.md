@@ -27,7 +27,7 @@ Start from the PR and its head commit, the issue and the spec when they exist, t
    - `not_reached`: no check failed, and at least one planned check could not be run.
 7. Assess merge risk. Use the `merge-risk` skill from the shared skill library and report its low, medium, or high result. Base it on your own evidence and on what the review found, not on the author's claims. When that skill is not in your catalog, judge five things and give one overall level with a sentence for each: whether the change does what was asked and only that; what breaks, and for whom, if it is wrong; how strong the verification is; how easily it can be undone; and whether anyone would notice if it broke. A change that cannot be undone, or that touches authentication, permissions, payments, personal data, or a data migration, is never `low`.
 8. Set the labels. Put exactly one of `qa:passed`, `qa:failed`, or `qa:not-reached` and exactly one of `risk:low`, `risk:medium`, or `risk:high` on the PR, and remove any stale one from an earlier round.
-9. Post the report as one new comment on the PR. Post a new comment for each round; do not edit an earlier one.
+9. Post the report as one new comment on the PR. Post a new comment for each round; do not edit an earlier one. When you captured proof, put the links from `get_media_artifact_links` in the report. Never edit the PR description: the author's proof stays there, and yours goes in your report.
 10. Report the outputs.
 
 ## The report
@@ -59,6 +59,7 @@ Report these when the stage ends; the blueprint's edges read them.
 - `report_url`: the QA report comment on the PR.
 - `findings`: for `fail`, each failed check with what was expected, what happened, and how to see it.
 - `merge_risk`: `low`, `medium`, or `high`, with the main reason.
+- `proof`: the links to your captures, when you operated a user interface.
 
 ## Skills
 

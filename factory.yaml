@@ -164,6 +164,7 @@ blueprint:
                         report_url: The QA report comment on the PR, for the head commit that was checked.
                         findings: For fail, each failed check with what was expected, what happened, and how to see it.
                         merge_risk: one of low, medium, or high, with the main reason.
+                        proof: Links to the QA captures, when a user interface was operated.
                     prompt:
                         file: stages/qa.md
                     to:

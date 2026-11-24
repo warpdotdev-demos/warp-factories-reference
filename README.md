@@ -60,7 +60,7 @@ flowchart LR
 ```
 
 - **`research`** - Answers one bounded question, read-only. From the default factory.
-- **`work`** - The default work track. One worker takes a request through triage, an optional spec, implementation, and a review of its own change. This template adds a `qa` stage at the end: a separate QA worker runs the change, posts a report, and assesses merge risk. A failed check sends the pull request back to `implement`, at most twice. A change that skips review also skips QA.
+- **`work`** - The default work track. One worker takes a request through triage, an optional spec, implementation, and a review of its own change. This template adds a `qa` stage at the end: a separate QA worker runs the change, posts a report, and assesses merge risk. For a change to a user interface, it operates the running application with computer use and links its captures in the report. A failed check sends the pull request back to `implement`, at most twice. A change that skips review also skips QA.
 - **`security`** - For dependency advisories. A daily audit files what is new, each advisory is assessed against what the repository actually resolves, and an affected one gets the smallest verified upgrade as a pull request.
 - **`respond`** - For things that are broken right now. It confirms the problem, finds the change that caused it, and opens a revert or a bounded fix as a pull request. It never deploys or rolls anything back.
 - **`ops`** - A stage the foreman runs itself for a weekly digest and reminders.
